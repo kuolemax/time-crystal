@@ -10,9 +10,6 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import net.minecraftforge.common.config.Configuration;
-
-import java.io.File;
 
 public class CommonProxy {
 
@@ -21,22 +18,14 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
 
-        Torcherino.LOG.info(Config.greeting);
+        Torcherino.LOG.info(Config.overPoweredRecipe);
         Torcherino.LOG.info("I am MyMod at version " + Tags.VERSION);
 
         NetworkRegistry.INSTANCE.registerGuiHandler(Torcherino.instance(), new ModGuiHandler());
         PacketHandler.init();
 
-        final Configuration cfg = new Configuration(new File("Torcherino.cfg"));
-        try {
-            cfg.load();
-
-            ModBlocks.init();
-            Recipes.init(cfg);
-        } finally {
-            if (cfg.hasChanged())
-                cfg.save();
-        }
+        ModBlocks.init();
+        Recipes.init();
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)
