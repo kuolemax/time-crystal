@@ -1,7 +1,6 @@
 package cn.kuolemax.torcherino.init;
 
 import cn.kuolemax.torcherino.Config;
-import cn.kuolemax.torcherino.Tags;
 import cn.kuolemax.torcherino.Torcherino;
 import cn.kuolemax.torcherino.gui.ModGuiHandler;
 import cn.kuolemax.torcherino.network.PacketHandler;
@@ -17,9 +16,6 @@ public class CommonProxy {
     // GameRegistry." (Remove if not needed)
     public void preInit(FMLPreInitializationEvent event) {
         Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
-
-        Torcherino.LOG.info(Config.overPoweredRecipe);
-        Torcherino.LOG.info("I am MyMod at version " + Tags.VERSION);
 
         NetworkRegistry.INSTANCE.registerGuiHandler(Torcherino.instance(), new ModGuiHandler());
         PacketHandler.init();

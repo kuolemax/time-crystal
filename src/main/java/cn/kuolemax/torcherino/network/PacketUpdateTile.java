@@ -8,8 +8,6 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import static cn.kuolemax.torcherino.Torcherino.LOG;
-
 public class PacketUpdateTile implements IMessage {
     private int x;
     private int y;
@@ -52,7 +50,6 @@ public class PacketUpdateTile implements IMessage {
             World world = ctx.getServerHandler().playerEntity.worldObj;
             TileEntity te = world.getTileEntity(message.x, message.y, message.z);
             if (te instanceof TileTorch torch) {
-                LOG.info("消息值为：{}", message.value);
                 if (message.type == 0) {
                     torch.setSpeedWithIndex(message.value);
                 } else {
