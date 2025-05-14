@@ -1,4 +1,6 @@
 tile.torcherino.torch.name=Torcherino
+tile.torcherino.compressed_torch.name=Compressed Torcherino
+tile.torcherino.double_compressed_torch.name=Double Compressed Torcherino
 
 gui.torcherino.speed=Speed Setting
 gui.torcherino.range=Range Setting

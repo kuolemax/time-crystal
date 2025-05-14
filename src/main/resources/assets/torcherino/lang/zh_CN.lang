@@ -1,4 +1,6 @@
 tile.torcherino.torch.name=加速火把
+tile.torcherino.compressed_torch.name=压缩加速火把
+tile.torcherino.double_compressed_torch.name=双重压缩加速火把
 
 gui.torcherino.speed=速度设置
 gui.torcherino.range=范围设置

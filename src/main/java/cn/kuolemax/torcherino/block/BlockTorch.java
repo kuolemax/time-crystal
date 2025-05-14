@@ -11,7 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public final class BlockTorch extends net.minecraft.block.BlockTorch implements ITileEntityProvider {
+public class BlockTorch extends net.minecraft.block.BlockTorch implements ITileEntityProvider {
     public BlockTorch() {
         this.setBlockName("torcherino.torch");
         this.setLightLevel(0.75f);

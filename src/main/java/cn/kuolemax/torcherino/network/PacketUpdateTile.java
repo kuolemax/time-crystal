@@ -8,12 +8,17 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import static cn.kuolemax.torcherino.Torcherino.LOG;
+
 public class PacketUpdateTile implements IMessage {
     private int x;
     private int y;
     private int z;
     private int value;
     private int type; // 0-speed,1-range
+
+    public PacketUpdateTile() {
+    }
 
     public PacketUpdateTile(int x, int y, int z, int value, int type) {
         this.x = x;
@@ -47,8 +52,9 @@ public class PacketUpdateTile implements IMessage {
             World world = ctx.getServerHandler().playerEntity.worldObj;
             TileEntity te = world.getTileEntity(message.x, message.y, message.z);
             if (te instanceof TileTorch torch) {
+                LOG.info("消息值为：{}", message.value);
                 if (message.type == 0) {
-                    torch.setSpeed(message.value);
+                    torch.setSpeedWithIndex(message.value);
                 } else {
                     torch.setRange(message.value);
                 }

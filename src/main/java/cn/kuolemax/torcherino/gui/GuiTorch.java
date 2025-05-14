@@ -10,6 +10,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class GuiTorch extends GuiContainer {
     private final TileTorch tile;
 
@@ -26,17 +30,18 @@ public class GuiTorch extends GuiContainer {
     @Override
     public void initGui() {
         super.initGui();
-// Speed buttons
-        String[] speedLabels = {"OFF", "2x", "3x", "4x", "5x"};
+        // Speed buttons
+        int[] speeds = this.tile.getSpeeds();
+        List<String> speedLabels = Arrays.stream(speeds).mapToObj(it -> it == 0 ? "OFF" : String.format("%s00%%", it)).collect(Collectors.toList());
         for (int i = 0; i < speedButtons.length; i++) {
             speedButtons[i] = new GuiButton(
                 i,
                 guiLeft + 10 + (i * 35),
                 guiTop + 40,
                 30, 20,
-                speedLabels[i]
+                speedLabels.get(i)
             );
-            speedButtons[i].enabled = (i != tile.getSpeed()); // 非当前选项可点击
+            speedButtons[i].enabled = (i != tile.getSpeedIndex()); // 非当前选项可点击
             this.buttonList.add(speedButtons[i]);
         }
 
@@ -59,7 +64,7 @@ public class GuiTorch extends GuiContainer {
     protected void actionPerformed(GuiButton button) {
         // 处理速度按钮 (ID 0-4)
         if (button.id >= 0 && button.id <= 4) {
-            tile.setSpeed(button.id);
+            tile.setSpeedWithIndex(button.id);
 
             // 更新按钮状态
             for (int i = 0; i < speedButtons.length; i++) {
@@ -97,8 +102,7 @@ public class GuiTorch extends GuiContainer {
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
         // 绘制物品名称（使用本地化）
-        String title = StatCollector.translateToLocal("tile.torcherino.torch.name");
-        fontRendererObj.drawString(title, guiLeft + 8, guiTop + 6, 0x404040);
+        fontRendererObj.drawString(this.tile.getBlockType().getLocalizedName(), guiLeft + 8, guiTop + 6, 0x404040);
 
         // 绘制设置标题（使用本地化）
         String speedText = StatCollector.translateToLocal("gui.torcherino.speed");

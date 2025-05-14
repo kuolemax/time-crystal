@@ -11,15 +11,15 @@ import java.util.Random;
 
 public class TileTorch extends TileEntity {
     private static final ImmutableSet<Block> blacklist = ImmutableSet.of(
-            Blocks.air,
-            Blocks.bedrock,
-            Blocks.obsidian,
-            Blocks.stone,
-            Blocks.glowstone,
-            Blocks.netherrack,
-            Blocks.sand,
-            Blocks.gravel,
-            ModBlocks.torcherino);
+        Blocks.air,
+        Blocks.bedrock,
+        Blocks.obsidian,
+        Blocks.stone,
+        Blocks.glowstone,
+        Blocks.netherrack,
+        Blocks.sand,
+        Blocks.gravel,
+        ModBlocks.torcherino);
 
     private int xMin;
     private int yMin;
@@ -30,6 +30,7 @@ public class TileTorch extends TileEntity {
 
     private final Random rand;
 
+    private int speedIndex = 0;
     private int speed = 0;
     private int range = 1;
 
@@ -97,11 +98,28 @@ public class TileTorch extends TileEntity {
         }
     }
 
-    public void setSpeed(int speed) {this.speed = speed;}
+    public void setSpeedWithIndex(int speedIndex) {
+        this.speedIndex = speedIndex;
+        this.speed = getSpeeds()[speedIndex];
+    }
 
-    public int getSpeed() {return speed;}
+    public int getSpeed() {
+        return speed;
+    }
 
-    public void setRange(int range) {this.range = range;}
+    public int getSpeedIndex() {
+        return this.speedIndex;
+    }
 
-    public int getRange() {return range;}
+    public void setRange(int range) {
+        this.range = range;
+    }
+
+    public int getRange() {
+        return range;
+    }
+
+    public int[] getSpeeds() {
+        return new int[]{0, 1, 2, 3, 4};
+    }
 }
