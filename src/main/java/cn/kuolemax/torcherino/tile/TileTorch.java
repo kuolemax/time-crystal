@@ -19,7 +19,9 @@ public class TileTorch extends TileEntity {
         Blocks.netherrack,
         Blocks.sand,
         Blocks.gravel,
-        ModBlocks.torcherino);
+        ModBlocks.torcherino,
+        ModBlocks.compressedTorch,
+        ModBlocks.doubleCompressedTorch);
 
     private int xMin;
     private int yMin;
