@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 
 public final class Recipes {
     public static void init() {
-        if (!Config.overPoweredRecipe)
+        if (Config.overPoweredRecipe)
             GameRegistry.addRecipe(new ItemStack(ModBlocks.torcherino), "XCX", "CTC", "XCX", 'C', Items.clock, 'T', Blocks.torch);
         else
             GameRegistry.addRecipe(new ItemStack(ModBlocks.torcherino), "SCS", "CTC", "SCS", 'C', Items.clock, 'S', Items.nether_star, 'T', Blocks.torch);
