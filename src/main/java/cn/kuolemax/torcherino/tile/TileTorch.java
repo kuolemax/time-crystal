@@ -45,6 +45,7 @@ public class TileTorch extends TileEntity {
         super.writeToNBT(tag);
         tag.setInteger("speed", speed);
         tag.setInteger("range", range);
+        tag.setInteger("speedIndex", speedIndex);
     }
 
     @Override
@@ -52,6 +53,7 @@ public class TileTorch extends TileEntity {
         super.readFromNBT(tag);
         speed = tag.getInteger("speed");
         range = tag.getInteger("range");
+        speedIndex = tag.getInteger("speedIndex");
     }
 
     @Override
