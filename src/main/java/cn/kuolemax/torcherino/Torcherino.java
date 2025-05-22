@@ -1,17 +1,19 @@
 package cn.kuolemax.torcherino;
 
 import cn.kuolemax.torcherino.init.CommonProxy;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
+import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-@Mod(modid = Torcherino.MODID, version = Tags.VERSION, name = "Torcherino", acceptedMinecraftVersions = "[1.7.10]")
+@Mod(modid = Torcherino.MODID, version = Tags.VERSION, name = "Torcherino", acceptedMinecraftVersions = "[1.7.10]", guiFactory = "cn.kuolemax.torcherino.gui.ConfigGuiFactory")
 public class Torcherino {
 
     private static Torcherino instance;
@@ -34,6 +36,7 @@ public class Torcherino {
     // GameRegistry." (Remove if not needed)
     public void preInit(FMLPreInitializationEvent event) {
         proxy.preInit(event);
+        FMLCommonHandler.instance().bus().register(new ConfigHandler());
     }
 
     @Mod.EventHandler
@@ -52,5 +55,14 @@ public class Torcherino {
     // register server commands in this event handler (Remove if not needed)
     public void serverStarting(FMLServerStartingEvent event) {
         proxy.serverStarting(event);
+    }
+
+    public static class ConfigHandler {
+        @SubscribeEvent
+        public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent e) {
+            if (e.modID.equals(MODID)) {
+                Config.synchronizeConfiguration();
+            }
+        }
     }
 }

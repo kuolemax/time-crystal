@@ -4,3 +4,8 @@ tile.torcherino.double_compressed_torch.name=Double Compressed Torcherino
 
 gui.torcherino.speed=Speed Setting
 gui.torcherino.range=Range Setting
+
+config.category.general=General
+config.property.OverPoweredRecipe=Over Powered Recipe
+config.property.HidePotionEffects=Hide Potion Effects
+

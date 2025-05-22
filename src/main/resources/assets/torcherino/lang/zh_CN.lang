@@ -4,3 +4,7 @@ tile.torcherino.double_compressed_torch.name=双重压缩加速火把
 
 gui.torcherino.speed=速度设置
 gui.torcherino.range=范围设置
+
+config.category.general=常规
+config.property.OverPoweredRecipe=是否使用OP配方
+config.property.HidePotionEffects=是否隐藏药水效果列表
