@@ -1,0 +1,10 @@
+tile.timecrystal.time_crystal.name=加速水晶
+tile.timecrystal.compressed_time_crystal.name=压缩加速水晶
+tile.timecrystal.double_compressed_time_crystal.name=双重压缩加速水晶
+
+gui.timecrystal.speed=速度设置
+gui.timecrystal.range=范围设置
+
+config.category.general=常规
+config.property.OverPoweredRecipe=是否使用OP配方
+config.property.HidePotionEffects=是否隐藏药水效果列表

@@ -1,0 +1,11 @@
+tile.timecrystal.time_crystal.name=Time Crystal
+tile.timecrystal.compressed_time_crystal.name=Compressed Time Crystal
+tile.timecrystal.double_compressed_time_crystal.name=Double Compressed Time Crystal
+
+gui.timecrystal.speed=Speed Setting
+gui.timecrystal.range=Range Setting
+
+config.category.general=General
+config.property.OverPoweredRecipe=Over Powered Recipe
+config.property.HidePotionEffects=Hide Potion Effects
+

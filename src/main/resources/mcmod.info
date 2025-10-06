@@ -3,7 +3,7 @@
 	"modList": [{
 		"modid": "${modId}",
 		"name": "${modName}",
-		"description": "torcherino with gui",
+		"description": "Time Crystal",
 		"version": "${modVersion}",
 		"mcversion": "${minecraftVersion}",
 		"url": "",

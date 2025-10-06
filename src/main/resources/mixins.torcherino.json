@@ -1,9 +1,9 @@
 {
-  "package": "cn.kuolemax.torcherino.mixins",
+  "package": "cn.kuolemax.timecrystal.mixins",
   "mixins": [
     "MixinInventoryEffectRenderer"
   ],
-  "refmap": "mixins.torcherino.refmap.json",
+  "refmap": "mixins.timecrystal.refmap.json",
   "compatibilityLevel": "JAVA_8",
   "minVersion": "0.7.11"
 }
