@@ -23,7 +23,6 @@ public class Config {
 
     public static void synchronizeConfiguration() {
 
-
         overPoweredRecipe = configuration.getBoolean("OverPoweredRecipe", Configuration.CATEGORY_GENERAL, overPoweredRecipe, "Is the recipe for timecrystal extremely OP?", "config.property.OverPoweredRecipe");
         hidePotionEffects = configuration.getBoolean("HidePotionEffects", Configuration.CATEGORY_GENERAL, hidePotionEffects, "Hide potion effects?", "config.property.HidePotionEffects");
 

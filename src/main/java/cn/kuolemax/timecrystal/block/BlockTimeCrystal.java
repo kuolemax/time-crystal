@@ -13,6 +13,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -74,5 +76,39 @@ public class BlockTimeCrystal extends BlockContainer {
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
         return Blocks.glass.getIcon(0, 0);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
+        // 定义一个中心偏小的立方体
+        float min = 0.3F;
+        float max = 0.7F;
+        return AxisAlignedBB.getBoundingBox(
+            x + min, y + min, z + min,
+            x + max, y + max, z + max
+        );
+    }
+
+    @Override
+    public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 start, Vec3 end) {
+        float min = 0.3F;
+        float max = 0.7F;
+
+        this.setBlockBounds(min, min, min, max, max, max);
+
+        // 用方块当前边界生成 AABB
+        AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(
+            x + min, y + min, z + min,
+            x + max, y + max, z + max
+        );
+
+        MovingObjectPosition hit = aabb.calculateIntercept(start, end);
+        if (hit == null) return null;
+
+        hit.blockX = x;
+        hit.blockY = y;
+        hit.blockZ = z;
+        return hit;
     }
 }
