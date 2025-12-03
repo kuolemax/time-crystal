@@ -1,7 +1,12 @@
 package cn.kuolemax.timecrystal.tile;
 
+import cn.kuolemax.timecrystal.TimeCrystal;
 import cn.kuolemax.timecrystal.init.ModBlocks;
 import com.google.common.collect.ImmutableSet;
+import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.metatileentity.BaseMetaTileEntity;
+import gregtech.api.metatileentity.CommonMetaTileEntity;
+import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -99,19 +104,36 @@ public abstract class TileEntityBaseTimeCrystal extends TileEntity {
                 for (int z = this.zMin; z <= this.zMax; z++) {
                     final Block block = this.worldObj.getBlock(x, y, z);
 
-                    if (blacklist.contains(block))
+                    if (block == null || blacklist.contains(block))
                         continue;
 
                     if (block.getTickRandomly()) {
                         for (int i = 0; i < this.getSpeed(); i++)
                             block.updateTick(this.worldObj, x, y, z, this.rand);
+                        continue;
                     }
 
-                    if (block.hasTileEntity(this.worldObj.getBlockMetadata(x, y, z))) {
-                        final TileEntity tile = this.worldObj.getTileEntity(x, y, z);
-                        if (tile != null && !(tile instanceof TileEntityBaseTimeCrystal) && !tile.isInvalid()) {
-                            for (int i = 0; i < this.getSpeed(); i++)
-                                tile.updateEntity();
+                    final TileEntity tileEntity = this.worldObj.getTileEntity(x, y, z);
+                    if (tileEntity != null
+                        && !(tileEntity instanceof TileEntityBaseTimeCrystal)
+                        && !tileEntity.isInvalid()
+                        && tileEntity.canUpdate()) {
+                        if (TimeCrystal.hasGregTech && tileEntity instanceof BaseMetaTileEntity baseMetaTileEntity) {
+                            final IMetaTileEntity metaTileEntity = baseMetaTileEntity.getMetaTileEntity();
+                            if (metaTileEntity instanceof CommonMetaTileEntity commonMetaTileEntity && commonMetaTileEntity.getProgresstime() > 0) {
+                                if (commonMetaTileEntity instanceof MTEMultiBlockBase mteMultiBlockBase) {
+                                    mteMultiBlockBase.mProgresstime += this.getSpeed();
+                                } else {
+                                    // MTEBasicMachine
+                                    // MTEHatchFluidGenerator
+                                    // MTEBrickedBlastFurnace
+                                    commonMetaTileEntity.increaseProgress(this.getSpeed());
+                                }
+                            }
+                        } else {
+                            for (int i = 0; i < this.getSpeed(); i++) {
+                                tileEntity.updateEntity();
+                            }
                         }
                     }
                 }

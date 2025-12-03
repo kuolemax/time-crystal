@@ -4,6 +4,7 @@ import cn.kuolemax.timecrystal.Config;
 import cn.kuolemax.timecrystal.TimeCrystal;
 import cn.kuolemax.timecrystal.gui.ModGuiHandler;
 import cn.kuolemax.timecrystal.network.PacketHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -15,6 +16,8 @@ public class CommonProxy {
     // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
     // GameRegistry." (Remove if not needed)
     public void preInit(FMLPreInitializationEvent event) {
+        TimeCrystal.hasGregTech = Loader.isModLoaded("gregtech");
+
         Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
 
         NetworkRegistry.INSTANCE.registerGuiHandler(TimeCrystal.instance(), new ModGuiHandler());

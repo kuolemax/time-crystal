@@ -18,6 +18,8 @@ public class TimeCrystal {
 
     private static TimeCrystal instance;
 
+    public static boolean hasGregTech = false;
+
     public static final String MODID = "timecrystal";
     public static final Logger LOG = LogManager.getLogger(MODID);
 
