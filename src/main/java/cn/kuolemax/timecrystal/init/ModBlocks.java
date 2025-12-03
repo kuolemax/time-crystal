@@ -8,8 +8,8 @@ import cn.kuolemax.timecrystal.tile.TileEntityDoubleCompressedTimeCrystal;
 import cn.kuolemax.timecrystal.tile.TileEntityTimeCrystal;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-
 public final class ModBlocks {
+
     public static BlockTimeCrystal timeCrystal;
     public static BlockCompressedTimeCrystal compressedTimeCrystal;
     public static BlockDoubleCompressedTimeCrystal doubleCompressedTimeCrystal;
@@ -21,12 +21,15 @@ public final class ModBlocks {
 
         GameRegistry.registerBlock(ModBlocks.timeCrystal, ModBlocks.timeCrystal.getUnlocalizedName());
         GameRegistry.registerTileEntity(TileEntityTimeCrystal.class, "tile_time_crystal");
-        GameRegistry.registerBlock(ModBlocks.compressedTimeCrystal, ModBlocks.compressedTimeCrystal.getUnlocalizedName());
+        GameRegistry
+            .registerBlock(ModBlocks.compressedTimeCrystal, ModBlocks.compressedTimeCrystal.getUnlocalizedName());
         GameRegistry.registerTileEntity(TileEntityCompressedTimeCrystal.class, "tile_compressed_time_crystal");
-        GameRegistry.registerBlock(ModBlocks.doubleCompressedTimeCrystal, ModBlocks.doubleCompressedTimeCrystal.getUnlocalizedName());
-        GameRegistry.registerTileEntity(TileEntityDoubleCompressedTimeCrystal.class, "tile_double_compressed_time_crystal");
+        GameRegistry.registerBlock(
+            ModBlocks.doubleCompressedTimeCrystal,
+            ModBlocks.doubleCompressedTimeCrystal.getUnlocalizedName());
+        GameRegistry
+            .registerTileEntity(TileEntityDoubleCompressedTimeCrystal.class, "tile_double_compressed_time_crystal");
     }
 
-    private ModBlocks() {
-    }
+    private ModBlocks() {}
 }

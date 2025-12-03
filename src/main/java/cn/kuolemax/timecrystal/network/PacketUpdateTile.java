@@ -1,22 +1,23 @@
 package cn.kuolemax.timecrystal.network;
 
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+
 import cn.kuolemax.timecrystal.tile.TileEntityBaseTimeCrystal;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
 public class PacketUpdateTile implements IMessage {
+
     private int x;
     private int y;
     private int z;
     private int value;
     private int type; // 0-speed,1-range
 
-    public PacketUpdateTile() {
-    }
+    public PacketUpdateTile() {}
 
     public PacketUpdateTile(int x, int y, int z, int value, int type) {
         this.x = x;
@@ -45,6 +46,7 @@ public class PacketUpdateTile implements IMessage {
     }
 
     public static class Handler implements IMessageHandler<PacketUpdateTile, IMessage> {
+
         @Override
         public IMessage onMessage(PacketUpdateTile message, MessageContext ctx) {
             World world = ctx.getServerHandler().playerEntity.worldObj;

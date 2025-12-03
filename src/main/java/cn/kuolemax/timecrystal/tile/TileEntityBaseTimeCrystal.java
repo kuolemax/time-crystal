@@ -1,12 +1,8 @@
 package cn.kuolemax.timecrystal.tile;
 
-import cn.kuolemax.timecrystal.TimeCrystal;
-import cn.kuolemax.timecrystal.init.ModBlocks;
-import com.google.common.collect.ImmutableSet;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
-import gregtech.api.metatileentity.BaseMetaTileEntity;
-import gregtech.api.metatileentity.CommonMetaTileEntity;
-import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
+import java.util.Arrays;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,10 +11,17 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
-import java.util.Arrays;
-import java.util.Random;
+import com.google.common.collect.ImmutableSet;
+
+import cn.kuolemax.timecrystal.TimeCrystal;
+import cn.kuolemax.timecrystal.init.ModBlocks;
+import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.metatileentity.BaseMetaTileEntity;
+import gregtech.api.metatileentity.CommonMetaTileEntity;
+import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 
 public abstract class TileEntityBaseTimeCrystal extends TileEntity {
+
     private static final ImmutableSet<Block> blacklist = ImmutableSet.of(
         Blocks.air,
         Blocks.bedrock,
@@ -44,7 +47,7 @@ public abstract class TileEntityBaseTimeCrystal extends TileEntity {
     private int speedIndex = 0;
     private int speed = 0;
     private int range = 1;
-    private final int[] baseSpeedArr = new int[]{0, 1, 2, 3, 4};
+    private final int[] baseSpeedArr = new int[] { 0, 1, 2, 3, 4 };
 
     public TileEntityBaseTimeCrystal() {
         this.rand = new Random();
@@ -82,8 +85,7 @@ public abstract class TileEntityBaseTimeCrystal extends TileEntity {
     public void updateEntity() {
         if (worldObj.isRemote) return;
 
-        if (this.getSpeed() == 0)
-            return;
+        if (this.getSpeed() == 0) return;
 
         calculateRange();
         timeSpeedsUp();
@@ -104,23 +106,21 @@ public abstract class TileEntityBaseTimeCrystal extends TileEntity {
                 for (int z = this.zMin; z <= this.zMax; z++) {
                     final Block block = this.worldObj.getBlock(x, y, z);
 
-                    if (block == null || blacklist.contains(block))
-                        continue;
+                    if (block == null || blacklist.contains(block)) continue;
 
                     if (block.getTickRandomly()) {
-                        for (int i = 0; i < this.getSpeed(); i++)
-                            block.updateTick(this.worldObj, x, y, z, this.rand);
+                        for (int i = 0; i < this.getSpeed(); i++) block.updateTick(this.worldObj, x, y, z, this.rand);
                         continue;
                     }
 
                     final TileEntity tileEntity = this.worldObj.getTileEntity(x, y, z);
-                    if (tileEntity != null
-                        && !(tileEntity instanceof TileEntityBaseTimeCrystal)
+                    if (tileEntity != null && !(tileEntity instanceof TileEntityBaseTimeCrystal)
                         && !tileEntity.isInvalid()
                         && tileEntity.canUpdate()) {
                         if (TimeCrystal.hasGregTech && tileEntity instanceof BaseMetaTileEntity baseMetaTileEntity) {
                             final IMetaTileEntity metaTileEntity = baseMetaTileEntity.getMetaTileEntity();
-                            if (metaTileEntity instanceof CommonMetaTileEntity commonMetaTileEntity && commonMetaTileEntity.getProgresstime() > 0) {
+                            if (metaTileEntity instanceof CommonMetaTileEntity commonMetaTileEntity
+                                && commonMetaTileEntity.getProgresstime() > 0) {
                                 if (commonMetaTileEntity instanceof MTEMultiBlockBase mteMultiBlockBase) {
                                     mteMultiBlockBase.mProgresstime += this.getSpeed();
                                 } else {
@@ -154,7 +154,9 @@ public abstract class TileEntityBaseTimeCrystal extends TileEntity {
     public abstract int getFactor();
 
     public int[] getSpeeds() {
-        return Arrays.stream(baseSpeedArr).map(it -> it * this.getFactor()).toArray();
+        return Arrays.stream(baseSpeedArr)
+            .map(it -> it * this.getFactor())
+            .toArray();
     }
 
     public int getSpeed() {

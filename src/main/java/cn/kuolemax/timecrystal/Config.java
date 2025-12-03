@@ -1,9 +1,9 @@
 package cn.kuolemax.timecrystal;
 
+import java.io.File;
+
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
-
-import java.io.File;
 
 public class Config {
 
@@ -23,8 +23,18 @@ public class Config {
 
     public static void synchronizeConfiguration() {
 
-        overPoweredRecipe = configuration.getBoolean("OverPoweredRecipe", Configuration.CATEGORY_GENERAL, overPoweredRecipe, "Is the recipe for timecrystal extremely OP?", "config.property.OverPoweredRecipe");
-        hidePotionEffects = configuration.getBoolean("HidePotionEffects", Configuration.CATEGORY_GENERAL, hidePotionEffects, "Hide potion effects?", "config.property.HidePotionEffects");
+        overPoweredRecipe = configuration.getBoolean(
+            "OverPoweredRecipe",
+            Configuration.CATEGORY_GENERAL,
+            overPoweredRecipe,
+            "Is the recipe for timecrystal extremely OP?",
+            "config.property.OverPoweredRecipe");
+        hidePotionEffects = configuration.getBoolean(
+            "HidePotionEffects",
+            Configuration.CATEGORY_GENERAL,
+            hidePotionEffects,
+            "Hide potion effects?",
+            "config.property.HidePotionEffects");
 
         if (configuration.hasChanged()) {
             configuration.save();

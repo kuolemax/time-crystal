@@ -1,12 +1,14 @@
 package cn.kuolemax.timecrystal.gui;
 
-import cn.kuolemax.timecrystal.tile.TileEntityBaseTimeCrystal;
-import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import cn.kuolemax.timecrystal.tile.TileEntityBaseTimeCrystal;
+import cpw.mods.fml.common.network.IGuiHandler;
+
 public class ModGuiHandler implements IGuiHandler {
+
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID == 0) {
@@ -29,4 +31,3 @@ public class ModGuiHandler implements IGuiHandler {
         return null;
     }
 }
-

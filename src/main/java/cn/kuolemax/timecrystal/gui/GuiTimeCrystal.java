@@ -1,20 +1,23 @@
 package cn.kuolemax.timecrystal.gui;
 
-import cn.kuolemax.timecrystal.network.PacketHandler;
-import cn.kuolemax.timecrystal.network.PacketUpdateTile;
-import cn.kuolemax.timecrystal.tile.TileEntityBaseTimeCrystal;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+
 import org.lwjgl.opengl.GL11;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import cn.kuolemax.timecrystal.network.PacketHandler;
+import cn.kuolemax.timecrystal.network.PacketUpdateTile;
+import cn.kuolemax.timecrystal.tile.TileEntityBaseTimeCrystal;
 
 public class GuiTimeCrystal extends GuiContainer {
+
     private final TileEntityBaseTimeCrystal tile;
 
     private final GuiButton[] speedButtons = new GuiButton[5]; // OFF + 4 levels
@@ -32,29 +35,25 @@ public class GuiTimeCrystal extends GuiContainer {
         super.initGui();
         // Speed buttons
         int[] speeds = this.tile.getSpeeds();
-        List<String> speedLabels = Arrays.stream(speeds).mapToObj(it -> it == 0 ? "OFF" : String.format("⬆ %sx", it)).collect(Collectors.toList());
+        List<String> speedLabels = Arrays.stream(speeds)
+            .mapToObj(it -> it == 0 ? "OFF" : String.format("⬆ %sx", it))
+            .collect(Collectors.toList());
         for (int i = 0; i < speedButtons.length; i++) {
-            speedButtons[i] = new GuiButton(
-                i,
-                guiLeft + 10 + (i * 35),
-                guiTop + 40,
-                30, 20,
-                speedLabels.get(i)
-            );
+            speedButtons[i] = new GuiButton(i, guiLeft + 10 + (i * 35), guiTop + 40, 30, 20, speedLabels.get(i));
             speedButtons[i].enabled = (i != tile.getSpeedIndex()); // 非当前选项可点击
             this.buttonList.add(speedButtons[i]);
         }
 
         // Range buttons
-        String[] rangeLabels = {"3x3", "5x5", "7x7", "9x9"};
+        String[] rangeLabels = { "3x3", "5x5", "7x7", "9x9" };
         for (int i = 0; i < rangeButtons.length; i++) {
             rangeButtons[i] = new GuiButton(
                 i + 10, // 使用不同ID范围
                 guiLeft + 10 + (i * 45),
                 guiTop + 80,
-                40, 20,
-                rangeLabels[i]
-            );
+                40,
+                20,
+                rangeLabels[i]);
             rangeButtons[i].enabled = (i + 1 != tile.getRange()); // 范围值从1开始
             this.buttonList.add(rangeButtons[i]);
         }
@@ -72,9 +71,9 @@ public class GuiTimeCrystal extends GuiContainer {
             }
 
             // 发送数据包
-            PacketHandler.INSTANCE.sendToServer(new PacketUpdateTile(
-                tile.xCoord, tile.yCoord, tile.zCoord,
-                button.id, 0 // 0 for speed
+            PacketHandler.INSTANCE.sendToServer(new PacketUpdateTile(tile.xCoord, tile.yCoord, tile.zCoord, button.id, 0 // 0
+                                                                                                                         // for
+                                                                                                                         // speed
             ));
         }
         // 处理范围按钮 (ID 10-13)
@@ -88,9 +87,8 @@ public class GuiTimeCrystal extends GuiContainer {
             }
 
             // 发送数据包
-            PacketHandler.INSTANCE.sendToServer(new PacketUpdateTile(
-                tile.xCoord, tile.yCoord, tile.zCoord,
-                rangeValue, 1 // 1 for range
+            PacketHandler.INSTANCE
+                .sendToServer(new PacketUpdateTile(tile.xCoord, tile.yCoord, tile.zCoord, rangeValue, 1 // 1 for range
             ));
         }
     }
@@ -98,11 +96,17 @@ public class GuiTimeCrystal extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         drawDefaultBackground();
-        mc.getTextureManager().bindTexture(new ResourceLocation("timecrystal:textures/gui/time_crystal_gui.png"));
+        mc.getTextureManager()
+            .bindTexture(new ResourceLocation("timecrystal:textures/gui/time_crystal_gui.png"));
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
         // 绘制物品名称（使用本地化）
-        fontRendererObj.drawString(this.tile.getBlockType().getLocalizedName(), guiLeft + 8, guiTop + 6, 0x404040);
+        fontRendererObj.drawString(
+            this.tile.getBlockType()
+                .getLocalizedName(),
+            guiLeft + 8,
+            guiTop + 6,
+            0x404040);
 
         // 绘制设置标题（使用本地化）
         String speedText = StatCollector.translateToLocal("gui.timecrystal.speed");

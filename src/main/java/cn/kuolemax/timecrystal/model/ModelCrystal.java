@@ -3,6 +3,7 @@ package cn.kuolemax.timecrystal.model;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -10,6 +11,7 @@ import org.lwjgl.opengl.GL11;
  * Created using Tabula 4.1.1
  */
 public class ModelCrystal extends ModelBase {
+
     public ModelRenderer shape1;
 
     public ModelCrystal() {
@@ -25,10 +27,16 @@ public class ModelCrystal extends ModelBase {
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glPushMatrix();
         GL11.glTranslatef(this.shape1.offsetX, this.shape1.offsetY, this.shape1.offsetZ);
-        GL11.glTranslatef(this.shape1.rotationPointX * f5, this.shape1.rotationPointY * f5, this.shape1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            this.shape1.rotationPointX * f5,
+            this.shape1.rotationPointY * f5,
+            this.shape1.rotationPointZ * f5);
         GL11.glScaled(0.6D, 0.6D, 0.6D);
         GL11.glTranslatef(-this.shape1.offsetX, -this.shape1.offsetY, -this.shape1.offsetZ);
-        GL11.glTranslatef(-this.shape1.rotationPointX * f5, -this.shape1.rotationPointY * f5, -this.shape1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.shape1.rotationPointX * f5,
+            -this.shape1.rotationPointY * f5,
+            -this.shape1.rotationPointZ * f5);
         this.shape1.render(f5);
         GL11.glPopMatrix();
     }

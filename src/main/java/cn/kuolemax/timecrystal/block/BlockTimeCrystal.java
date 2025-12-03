@@ -30,7 +30,8 @@ public class BlockTimeCrystal extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
+                                    float hitY, float hitZ) {
         if (!world.isRemote) {
             player.openGui(TimeCrystal.instance(), 0, world, x, y, z);
         }
@@ -43,7 +44,8 @@ public class BlockTimeCrystal extends BlockContainer {
     }
 
     @Override
-    public void addCollisionBoxesToList(World worldIn, int x, int y, int z, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collider) {
+    public void addCollisionBoxesToList(World worldIn, int x, int y, int z, AxisAlignedBB mask,
+                                        List<AxisAlignedBB> list, Entity collider) {
         // remove collision box
     }
 
@@ -84,10 +86,7 @@ public class BlockTimeCrystal extends BlockContainer {
         // 定义一个中心偏小的立方体
         float min = 0.3F;
         float max = 0.7F;
-        return AxisAlignedBB.getBoundingBox(
-            x + min, y + min, z + min,
-            x + max, y + max, z + max
-        );
+        return AxisAlignedBB.getBoundingBox(x + min, y + min, z + min, x + max, y + max, z + max);
     }
 
     @Override
@@ -98,10 +97,7 @@ public class BlockTimeCrystal extends BlockContainer {
         this.setBlockBounds(min, min, min, max, max, max);
 
         // 用方块当前边界生成 AABB
-        AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(
-            x + min, y + min, z + min,
-            x + max, y + max, z + max
-        );
+        AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(x + min, y + min, z + min, x + max, y + max, z + max);
 
         MovingObjectPosition hit = aabb.calculateIntercept(start, end);
         if (hit == null) return null;

@@ -1,15 +1,18 @@
 package cn.kuolemax.timecrystal.render;
 
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+
 import cn.kuolemax.timecrystal.block.BlockTimeCrystal;
 import cn.kuolemax.timecrystal.model.ModelCrystal;
 import cn.kuolemax.timecrystal.tile.TileEntityBaseTimeCrystal;
 import cn.kuolemax.timecrystal.util.RenderUtils;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 public class RenderCrystal extends TileEntitySpecialRenderer {
+
     private final ModelCrystal model = new ModelCrystal();
 
     @Override
