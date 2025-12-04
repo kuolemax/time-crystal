@@ -1,8 +1,9 @@
 package cn.kuolemax.timecrystal.block;
 
-import cn.kuolemax.timecrystal.tile.TileEntityCompressedTimeCrystal;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
+import cn.kuolemax.timecrystal.tile.TileEntityCompressedTimeCrystal;
 
 public class BlockCompressedTimeCrystal extends BlockTimeCrystal {
 

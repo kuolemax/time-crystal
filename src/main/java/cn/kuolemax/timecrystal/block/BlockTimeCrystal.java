@@ -1,9 +1,7 @@
 package cn.kuolemax.timecrystal.block;
 
-import cn.kuolemax.timecrystal.TimeCrystal;
-import cn.kuolemax.timecrystal.tile.TileEntityTimeCrystal;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,7 +15,10 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-import java.util.List;
+import cn.kuolemax.timecrystal.TimeCrystal;
+import cn.kuolemax.timecrystal.tile.TileEntityTimeCrystal;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockTimeCrystal extends BlockContainer {
 
@@ -31,7 +32,7 @@ public class BlockTimeCrystal extends BlockContainer {
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
-                                    float hitY, float hitZ) {
+        float hitY, float hitZ) {
         if (!world.isRemote) {
             player.openGui(TimeCrystal.instance(), 0, world, x, y, z);
         }
@@ -45,7 +46,7 @@ public class BlockTimeCrystal extends BlockContainer {
 
     @Override
     public void addCollisionBoxesToList(World worldIn, int x, int y, int z, AxisAlignedBB mask,
-                                        List<AxisAlignedBB> list, Entity collider) {
+        List<AxisAlignedBB> list, Entity collider) {
         // remove collision box
     }
 
